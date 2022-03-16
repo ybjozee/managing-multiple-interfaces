@@ -22,3 +22,13 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    
+#    Tag payment service provider implementations
+    _instanceof:
+        App\Interfaces\PaymentValidatorInterface:
+            tags: ['app.paymentValidator']
+    
+#    Autowire PaymentValidatorService and inject tagged services
+    App\Service\PaymentValidatorService:
+        arguments:
+            $validators: !tagged_iterator app.paymentValidator
